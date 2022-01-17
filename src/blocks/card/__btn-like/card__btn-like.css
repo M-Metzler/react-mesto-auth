@@ -1,0 +1,14 @@
+.card__btn-like {
+  border: none;
+  background: url(../../../images/heart.svg) center no-repeat;
+  width: 22px;
+  height: 19px;
+  cursor: pointer;
+  padding: 0;
+  justify-self: end;
+  transition: opacity 1s ease-out;
+}
+
+.card__btn-like:hover {
+  opacity: 0.5;
+}

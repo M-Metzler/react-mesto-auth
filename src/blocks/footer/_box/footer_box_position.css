@@ -1,0 +1,17 @@
+.footer_box_position {
+  margin: auto;
+  padding-bottom: 60px;
+}
+
+@media (max-width: 920px) {
+  .footer_box_position {
+    margin-left: 20px;
+    margin-right: 20px;
+  }
+}
+
+@media (max-width: 460px) {
+  .footer_box_position {
+    padding-bottom: 36px;
+  }
+}

@@ -1,0 +1,13 @@
+.card__image {
+  width: 282px;
+  height: 282px;
+  object-fit: cover;
+  border-radius: 10px 10px 0 0;
+  cursor: pointer;
+  display: block;
+  transition: opacity .3s linear;
+}
+
+.card__image:hover {
+  opacity: .5;
+}

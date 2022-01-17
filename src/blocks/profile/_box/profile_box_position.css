@@ -1,0 +1,17 @@
+.profile_box_position {
+  margin: 0 auto;
+  margin-bottom: 50px;
+}
+
+@media (max-width: 920px) {
+  .profile_box_position {
+    margin-left: 20px;
+    margin-right: 20px;
+  }
+}
+
+@media (max-width: 460px) {
+  .profile_box_position {
+    margin-bottom: 36px;
+  }
+}

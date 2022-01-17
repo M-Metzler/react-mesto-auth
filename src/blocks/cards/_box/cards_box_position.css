@@ -1,0 +1,9 @@
+.cards_box_position {
+  margin-bottom: 66px;
+}
+
+@media (max-width: 460px) {
+  .cards_box_position {
+    margin-bottom: 48px;
+  }
+}

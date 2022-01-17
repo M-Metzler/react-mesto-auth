@@ -1,0 +1,14 @@
+.profile {
+  font-family: "Inter", Arial, Helvetica, sans-serif;
+  max-width: 880px;
+  display: grid;
+  grid-template-columns: 120px 1fr 150px;
+  align-items: center;
+}
+
+@media (max-width: 765px) {
+  .profile {
+    display: flex;
+    flex-direction: column;
+  }
+}
