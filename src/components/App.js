@@ -1,6 +1,8 @@
 import React from 'react';
 import { useEffect } from 'react';
+import { Route, Switch } from 'react-router-dom';
 import Header from './Header';
+import Register from './Register';
 import Main from './Main';
 import Footer from './Footer';
 import EditProfilePopup from './EditProfilePopup';
@@ -9,6 +11,7 @@ import AddPlacePopup from './AddPlacePopup ';
 import ImagePopup from './ImagePopup';
 import api from '../utils/api';
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
+
 
 function App() {
 
@@ -146,15 +149,24 @@ function App() {
       <div className='page'>
         <div className="page__content">
           <Header />
-          <Main
-            onEditProfile={handleEditProfileClick}
-            onEditAvatar={handleEditAvatarClick}
-            onAddPlace={handleAddPlaceClick}
-            onCardClick={handleCardClick}
-            onCardLike={handleCardLike}
-            onCardDelete={handleCardDelete}
-            cards={cards}
-          />
+          <Switch>
+            <Route path="/sign-up">
+              <Register />
+            </Route>
+            <Route path="/sign-in">
+
+            </Route>
+            <Main
+              exact path="/"
+              onEditProfile={handleEditProfileClick}
+              onEditAvatar={handleEditAvatarClick}
+              onAddPlace={handleAddPlaceClick}
+              onCardClick={handleCardClick}
+              onCardLike={handleCardLike}
+              onCardDelete={handleCardDelete}
+              cards={cards}
+            />
+          </Switch>
           <Footer />
         </div>
         <EditProfilePopup

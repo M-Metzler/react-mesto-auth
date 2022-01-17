@@ -62,3 +62,10 @@
 @import url(./blocks/footer/footer.css);
 @import url(./blocks/footer/_box/footer_box_position.css);
 @import url(./blocks/footer/__author/footer__author.css);
+
+@import url(./blocks/start-page/start-page.css);
+@import url(./blocks/start-page/__title/start-page__title.css);
+@import url(./blocks/start-page/__form/start-page__form.css);
+@import url(./blocks/start-page/__input/start-page__input.css);
+@import url(./blocks/start-page/__button/start-page__button.css);
+@import url(./blocks/start-page/__login/start-page__login.css);

@@ -1,0 +1,17 @@
+.start-page__input {
+  width: 358px;
+  background-color: #000000;
+  border: 0;
+  border-bottom: 2px solid #cccccc;
+  outline: none;
+  padding: 0 0 13px;
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 17px;
+  color: #ffffff;
+  margin-bottom: 30px;
+}
+
+.start-page__input:last-of-type {
+  margin-bottom: 0;
+}

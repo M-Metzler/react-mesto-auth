@@ -1,0 +1,13 @@
+.start-page__login {
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 17px;
+  color: #ffffff;
+  cursor: pointer;
+  text-decoration: none;
+  transition: opacity 0.3s ease-in;
+}
+
+.start-page__login:hover{
+    opacity: 0.6;
+}
