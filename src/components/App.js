@@ -3,8 +3,11 @@ import { useEffect } from 'react';
 import { Route, Switch } from 'react-router-dom';
 import Header from './Header';
 import Register from './Register';
+import Login from './Login';
+import ProtectedRoute from './ProtectedRoute';
 import Main from './Main';
 import Footer from './Footer';
+import InfoTooltip from './InfoTooltip';
 import EditProfilePopup from './EditProfilePopup';
 import EditAvatarPopup from './EditAvatarPopup';
 import AddPlacePopup from './AddPlacePopup ';
@@ -18,9 +21,11 @@ function App() {
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = React.useState(false);
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = React.useState(false);
   const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = React.useState(false);
+  const [isInfoTooltipOpen, setIsInfoTooltipOpen] = React.useState(false);
   const [selectedCard, setSelectedCard] = React.useState({ name: '', link: '' });
   const [currentUser, setCurrentUser] = React.useState({});
   const [cards, setCards] = React.useState([]);
+  const [loggedIn, setLoggedIn] = React.useState(false);
 
 
 
@@ -51,11 +56,16 @@ function App() {
     setSelectedCard(card);
   }
 
+  function handleInfoTooltipClick() {
+    setIsInfoTooltipOpen(true);
+  }
+
   function closeAllPopups() {
     setIsEditProfilePopupOpen(false);
     setIsEditAvatarPopupOpen(false);
     setIsAddPlacePopupOpen(false);
     setSelectedCard({ name: '', link: '' });
+    setIsInfoTooltipOpen(false);
   }
 
   function handleUpdateUser({ name, about }) {
@@ -154,10 +164,12 @@ function App() {
               <Register />
             </Route>
             <Route path="/sign-in">
-
+              <Login />
             </Route>
-            <Main
+            <ProtectedRoute
               exact path="/"
+              component={Main}
+              loggedIn={loggedIn}
               onEditProfile={handleEditProfileClick}
               onEditAvatar={handleEditAvatarClick}
               onAddPlace={handleAddPlaceClick}
@@ -169,6 +181,10 @@ function App() {
           </Switch>
           <Footer />
         </div>
+        <InfoTooltip
+          isOpen={isInfoTooltipOpen}
+          onClose={closeAllPopups}
+        />
         <EditProfilePopup
           isOpen={isEditProfilePopupOpen}
           onClose={closeAllPopups}
