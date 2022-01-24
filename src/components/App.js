@@ -1,6 +1,6 @@
 import React from 'react';
 import { useEffect } from 'react';
-import { Route, Switch } from 'react-router-dom';
+import { Redirect, Route, Switch, useHistory } from 'react-router-dom';
 import Header from './Header';
 import Register from './Register';
 import Login from './Login';
@@ -13,7 +13,12 @@ import EditAvatarPopup from './EditAvatarPopup';
 import AddPlacePopup from './AddPlacePopup ';
 import ImagePopup from './ImagePopup';
 import api from '../utils/api';
+import * as auth from '../utils/auth';
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
+
+//foto
+import imgAuthSuccessful from '../images/auth_reg-ok.svg';
+import imgAuthError from '../images/auth_reg-error.svg';
 
 
 function App() {
@@ -26,7 +31,9 @@ function App() {
   const [currentUser, setCurrentUser] = React.useState({});
   const [cards, setCards] = React.useState([]);
   const [loggedIn, setLoggedIn] = React.useState(false);
-
+  const [email, setEmail] = React.useState('');
+  const [message, setMessage] = React.useState({ img: '', text: '' });
+  const history = useHistory();
 
 
   React.useEffect(() => {
@@ -38,6 +45,20 @@ function App() {
       .catch((err) =>
         console.log(`Ошибка: ${err}`))
   }, []);
+
+  React.useEffect(() => {
+    const jwt = localStorage.getItem('jwt');
+    if (jwt) {
+      auth
+        .getContent(jwt)
+        .then((res) => {
+          setLoggedIn(true);
+          setEmail(res.data.email);
+          history.push('/');
+        })
+        .catch((err) => console.log(`Ошибка: ${err}`));
+    }
+  }, [history]);
 
 
   function handleEditProfileClick() {
@@ -56,7 +77,7 @@ function App() {
     setSelectedCard(card);
   }
 
-  function handleInfoTooltipClick() {
+  function handleInfoTooltipShow() {
     setIsInfoTooltipOpen(true);
   }
 
@@ -96,6 +117,11 @@ function App() {
       })
       .catch((err) =>
         console.log(`Ошибка: ${err}`))
+  }
+
+
+  function handleTooltipInfo({ img, text }) {
+    setMessage({ img, text });
   }
 
 
@@ -152,19 +178,68 @@ function App() {
     }
   }, []);
 
+  //Регистрация, авторизация, выход
+
+  function registration({ email, password }) {
+    auth.register({ email, password })
+      .then((res) => {
+        handleTooltipInfo({
+          img: imgAuthSuccessful,
+          text: "Вы успешно зарегистрировались!",
+        });
+        handleInfoTooltipShow();
+        history.push('/sing-in');
+      })
+      .catch((err) => {
+        handleTooltipInfo({
+          img: imgAuthError,
+          text: "Что-то пошло не так! Попробуйте ещё раз.",
+        });
+        handleInfoTooltipShow();
+        console.log(`Ошибка: ${err}`);
+      });
+  }
+
+
+  function authorization({ email, password }) {
+    auth.authorize({ email, password })
+      .then((data) => {
+        if (!data) {
+          return;
+        }
+        setLoggedIn(true);
+        setEmail(email);
+        history.push('/');
+      })
+      .catch((err) => {
+        handleTooltipInfo({
+          img: imgAuthError,
+          text: "Что-то пошло не так! Попробуйте ещё раз.",
+        });
+        handleInfoTooltipShow();
+        console.log(`Ошибка: ${err}`);
+      });
+  }
+
+  function handleSignOut() {
+    setLoggedIn(false);
+    localStorage.removeItem('jwt');
+    setEmail('');
+    history.push('/sign-in');
+  }
 
 
   return (
     <CurrentUserContext.Provider value={currentUser}>
-      <div className='page'>
+      <div className="page">
         <div className="page__content">
-          <Header />
+          <Header loggedIn={loggedIn} email={email} onLogout={handleSignOut} />
           <Switch>
             <Route path="/sign-up">
-              <Register />
+              <Register registration={registration} />
             </Route>
             <Route path="/sign-in">
-              <Login />
+              <Login authorization={authorization} />
             </Route>
             <ProtectedRoute
               exact path="/"
@@ -178,12 +253,16 @@ function App() {
               onCardDelete={handleCardDelete}
               cards={cards}
             />
+            <Route>
+              {loggedIn ? <Redirect to="/" /> : <Redirect to="/sign-in" />}
+            </Route>
           </Switch>
           <Footer />
         </div>
         <InfoTooltip
           isOpen={isInfoTooltipOpen}
           onClose={closeAllPopups}
+          message={message}
         />
         <EditProfilePopup
           isOpen={isEditProfilePopupOpen}
