@@ -1,6 +1,5 @@
 import React from 'react';
-import imgOk from '../images/auth_reg-ok.svg';
-import imgError from '../images/auth_reg-error.svg';
+
 
 function InfoTooltip({ isOpen, onClose, message }) {
     return (

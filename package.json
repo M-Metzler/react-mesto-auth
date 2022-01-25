@@ -1,10 +1,10 @@
 {
-  "name": "mesto-react",
+  "name": "react-mesto-auth",
   "version": "0.1.0",
-  "description": "проект Mesto реализованный на React",
+  "description": "проект Mesto реализованный на React с авторизацией и регистрацией",
   "author": "Mikhail Metzler",
   "private": true,
-  "homepage": "https://m-metzler.github.io/mesto-react/",
+  "homepage": "https://m-metzler.github.io/react-mesto-auth",
   "dependencies": {
     "@testing-library/jest-dom": "^5.16.1",
     "@testing-library/react": "^12.1.2",

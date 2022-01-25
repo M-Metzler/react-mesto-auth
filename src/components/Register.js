@@ -30,7 +30,7 @@ function Register({ registration }) {
                     type="Email"
                     value={valueEmail}
                     onChange={handleChangeEmail}
-                    placeholder="email" />
+                    placeholder="Email" />
                 <input
                     className="start-page__input"
                     type="password"
