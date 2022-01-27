@@ -26,13 +26,13 @@
 5. React Router
 
 
-### Запуск проекта
+### Запуск проекта:
 1. Клонировать репозиторий ``` git clone https://github.com/M-Metzler/mesto-react.git ```
 2. Установить зависимости ``` npm install ```
 3. Запуск в режиме разработки ``` npm start ```  
 Для просмотра результатов в браузере откройте http://localhost:3000
 5. Сборка проекта ``` npm run build ```
 
-### Страница проекта
+### Страница проекта:
 
 [Ссылка на проект](https://m-metzler.github.io/react-mesto-auth)
